@@ -39,6 +39,7 @@ contract RPD is VRFConsumerBase, Ownable {
 
     // Event for logging prize distribution
     event PrizeDistributionEvent(address[] indexed winners, uint256[] indexed amounts);
+    event Participated(uint256 entries);
 
     constructor(address _vrfCoordinator, address _link, bytes32 _keyHash, uint256 _fee, address _tokenAddress) VRFConsumerBase(_vrfCoordinator, _link) Ownable(msg.sender){
         keyHash = _keyHash;
@@ -63,6 +64,8 @@ contract RPD is VRFConsumerBase, Ownable {
         }
 
         participants[msg.sender].entries += _entries;
+
+        emit Participated(_entries);
     }
 
     // Trigger the prize distribution
